@@ -9,7 +9,10 @@ import multer from 'multer'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { register } from './controllers/auth.js'
+import { createPost } from './controllers/posts.js'
+import { verifyToken } from './middleware/auth.js'
 import authRoutes from './routes/auth.js'
+import postsRoutes from './routes/posts.js'
 import userRoutes from './routes/users.js'
 
 // CONFIGURATION (middleware & package)
@@ -39,10 +42,12 @@ const upload = multer({ storage }) // anytime need to use upload file - use this
 
 // ROUTES WITH FILES (auth)
 app.post('/auth/register', upload.single('picture'), register) // not in routes/auth.js for access to upload multer func.
+app.post('/posts', verifyToken, upload.single('picture'), createPost) // grab properties from front end http call 'picture' and upload it to local
 
 // ROUTES
 app.use('/auth', authRoutes)
 app.use('/users', userRoutes)
+app.use('/posts', postsRoutes)
 
 // MONGOOSE SETUP
 const PORT = process.env.PORT || 6001
