@@ -23,7 +23,7 @@ export const createPost = async (req, res) => {
     await newPost.save()
     console.log('createPost newPost', newPost)
 
-    const post = await Post.find() // grab all the posts, to show updated posts to newsfeed with new post
+    const post = await Post.find().sort({ createdAt: 'desc' }) // grab all the posts, to show updated posts to newsfeed with new post // ! //
     res.status(201).json(post) // 201 created
   } catch (error) {
     res.status(409).json({ error: error.message })
@@ -36,7 +36,7 @@ export const createPost = async (req, res) => {
 export const getFeedPosts = async (req, res) => {
   try {
     // const posts = await Post.find()
-    const posts = await Post.find().sort({ createdAt: 'desc' }) // !
+    const posts = await Post.find().sort({ createdAt: 'desc' }) // ! //
     res.status(200).json(posts) // 200 sucessful request
   } catch (error) {
     res.status(409).json({ error: error.message })
@@ -47,8 +47,7 @@ export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params
     // const post = await Post.find({ userId }) // match posts with this userId
-    const post = await Post.find({ userId }).sort({ createdAt: 'desc' }) // match posts with this userId
-    // !
+    const post = await Post.find({ userId }).sort({ createdAt: 'desc' }) // match posts with this userId // ! //
     res.status(200).json(post)
   } catch (error) {
     res.status(409).json({ error: error.message })
