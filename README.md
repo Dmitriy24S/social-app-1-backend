@@ -1,6 +1,6 @@
 # Social Media App - Backend
 
-![Design preview for Social Media App - Backend(./design-preview/design-preview.png)
+![Design preview for Social Media App - Backend](./design-preview/design-preview.png)
 
 ## Welcome
 
